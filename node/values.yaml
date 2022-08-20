@@ -1,0 +1,8 @@
+replicaCount: 1
+context: node-app
+image: node-app:latest
+pullPolicy: IfNotPresent
+
+ports:
+  port: 3001
+  nodePort: 32000

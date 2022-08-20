@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.context}}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+  {{- if .Values.release }}
+    meta.helm.sh/release-name: {{ .Values.release }}
+  {{- end }}
+  {{- if .Values.namespace }}
+    meta.helm.sh/release-namespace: {{ .Values.namespace }}
+  {{- end }}
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+     app: {{ .Values.context }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.context }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image}}
+          imagePullPolicy: {{ .Values.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

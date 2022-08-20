@@ -1,0 +1,32 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+
+build:
+  artifacts:
+    - image: solid-app
+      context: solid
+      docker:
+        dockerfile: Dockerfile
+
+    - image: node-app
+      context: node
+      docker:
+        dockerfile: Dockerfile
+  local: {}
+
+deploy:
+  helm:
+    releases:
+      - name: solid-app
+        chartPath: charts/
+        valuesFiles:
+          - './solid/values.yaml'
+        artifactOverrides:
+          image: solid-app
+
+      - name: node-app
+        chartPath: charts/
+        valuesFiles:
+          - './node/values.yaml'
+        artifactOverrides:
+          image: node-app

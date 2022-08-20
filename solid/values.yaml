@@ -1,0 +1,9 @@
+
+replicaCount: 1
+context: solid-app
+image: solid-app:latest
+pullPolicy: IfNotPresent
+
+ports:
+  port: 3000
+  nodePort: 31000

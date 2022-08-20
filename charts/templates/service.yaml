@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.context }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+  {{- if .Values.release }}
+    meta.helm.sh/release-name: {{ .Values.release }}
+  {{- end }}
+  {{- if .Values.namespace }}
+    meta.helm.sh/release-namespace: {{ .Values.namespace }}
+  {{- end }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.ports.port }}
+      nodePort: {{ .Values.ports.nodePort }}
+      protocol: TCP
+      name: 'http'
+  selector:
+    app: {{ .Values.context}}
