@@ -1,4 +1,5 @@
 # Example app - microservices
+[Medium post](https://medium.com/@siham.hadi/deploy-a-solidjs-app-to-a-local-kubernetes-cluster-4e0046486ffc)
 ## Getting started
 
 ### Prerequisites
